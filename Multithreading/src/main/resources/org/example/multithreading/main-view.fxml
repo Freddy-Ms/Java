@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.multithreading.Controller">
+
+    <top>
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="Image Editor" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <ImageView fx:id="logoView" fitHeight="150" preserveRatio="true"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="10" alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <ImageView fx:id="originalView" fitWidth="300" preserveRatio="true"/>
+            <ImageView fx:id="processedView" fitWidth="300" preserveRatio="true"/>
+        </HBox>
+    </center>
+
+    <bottom>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Load Image" onAction="#loadImage"/>
+                <Button text="Scale Image" onAction="#scaleImage" fx:id="scaleBtn" disable="true"/>
+                <Button text="Save Image" onAction="#saveImage" fx:id="saveBtn" disable="true"/>
+                <Button fx:id="rotateLeftBtn" text="↺ Rotate Left" onAction="#rotateLeft" disable="true"/>
+                <Button fx:id="rotateRightBtn" text="Rotate Right ↻" onAction="#rotateRight" disable="true"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER">
+                <ComboBox fx:id="operationBox" promptText="Select Operation"/>
+                <Button text="Apply" onAction="#applyOperation"/>
+            </HBox>
+            <Label fx:id="footerLabel" text="Maciej Skrzypa 272598" alignment="CENTER"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>
