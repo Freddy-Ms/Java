@@ -1,4 +1,5 @@
 import dayjs from 'dayjs/esm';
+import { IStudentProfileApp } from 'app/entities/student-profile-app/student-profile-app.model';
 import { ICourseApp } from 'app/entities/course-app/course-app.model';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
@@ -10,6 +11,7 @@ export interface IStudentApp {
   gender?: keyof typeof Gender | null;
   email?: string | null;
   registrationDate?: dayjs.Dayjs | null;
+  profile?: Pick<IStudentProfileApp, 'id'> | null;
   courses?: Pick<ICourseApp, 'id'>[] | null;
 }
 

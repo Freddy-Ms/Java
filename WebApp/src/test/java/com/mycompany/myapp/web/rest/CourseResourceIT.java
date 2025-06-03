@@ -416,7 +416,7 @@ class CourseResourceIT {
         Course partialUpdatedCourse = new Course();
         partialUpdatedCourse.setId(course.getId());
 
-        partialUpdatedCourse.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION);
+        partialUpdatedCourse.title(UPDATED_TITLE).description(UPDATED_DESCRIPTION).startDate(UPDATED_START_DATE);
 
         webTestClient
             .patch()

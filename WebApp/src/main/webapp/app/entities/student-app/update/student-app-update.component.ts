@@ -7,6 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { IStudentProfileApp } from 'app/entities/student-profile-app/student-profile-app.model';
+import { StudentProfileAppService } from 'app/entities/student-profile-app/service/student-profile-app.service';
 import { ICourseApp } from 'app/entities/course-app/course-app.model';
 import { CourseAppService } from 'app/entities/course-app/service/course-app.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
@@ -24,15 +26,20 @@ export class StudentAppUpdateComponent implements OnInit {
   student: IStudentApp | null = null;
   genderValues = Object.keys(Gender);
 
+  profilesCollection: IStudentProfileApp[] = [];
   coursesSharedCollection: ICourseApp[] = [];
 
   protected studentService = inject(StudentAppService);
   protected studentFormService = inject(StudentAppFormService);
+  protected studentProfileService = inject(StudentProfileAppService);
   protected courseService = inject(CourseAppService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: StudentAppFormGroup = this.studentFormService.createStudentAppFormGroup();
+
+  compareStudentProfileApp = (o1: IStudentProfileApp | null, o2: IStudentProfileApp | null): boolean =>
+    this.studentProfileService.compareStudentProfileApp(o1, o2);
 
   compareCourseApp = (o1: ICourseApp | null, o2: ICourseApp | null): boolean => this.courseService.compareCourseApp(o1, o2);
 
@@ -84,6 +91,10 @@ export class StudentAppUpdateComponent implements OnInit {
     this.student = student;
     this.studentFormService.resetForm(this.editForm, student);
 
+    this.profilesCollection = this.studentProfileService.addStudentProfileAppToCollectionIfMissing<IStudentProfileApp>(
+      this.profilesCollection,
+      student.profile,
+    );
     this.coursesSharedCollection = this.courseService.addCourseAppToCollectionIfMissing<ICourseApp>(
       this.coursesSharedCollection,
       ...(student.courses ?? []),
@@ -91,6 +102,16 @@ export class StudentAppUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
+    this.studentProfileService
+      .query({ filter: 'student-is-null' })
+      .pipe(map((res: HttpResponse<IStudentProfileApp[]>) => res.body ?? []))
+      .pipe(
+        map((studentProfiles: IStudentProfileApp[]) =>
+          this.studentProfileService.addStudentProfileAppToCollectionIfMissing<IStudentProfileApp>(studentProfiles, this.student?.profile),
+        ),
+      )
+      .subscribe((studentProfiles: IStudentProfileApp[]) => (this.profilesCollection = studentProfiles));
+
     this.courseService
       .query()
       .pipe(map((res: HttpResponse<ICourseApp[]>) => res.body ?? []))

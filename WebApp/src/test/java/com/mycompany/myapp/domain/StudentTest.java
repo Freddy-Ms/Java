@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import static com.mycompany.myapp.domain.CourseTestSamples.*;
+import static com.mycompany.myapp.domain.StudentProfileTestSamples.*;
 import static com.mycompany.myapp.domain.StudentTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,6 +24,18 @@ class StudentTest {
 
         student2 = getStudentSample2();
         assertThat(student1).isNotEqualTo(student2);
+    }
+
+    @Test
+    void profileTest() {
+        Student student = getStudentRandomSampleGenerator();
+        StudentProfile studentProfileBack = getStudentProfileRandomSampleGenerator();
+
+        student.setProfile(studentProfileBack);
+        assertThat(student.getProfile()).isEqualTo(studentProfileBack);
+
+        student.profile(null);
+        assertThat(student.getProfile()).isNull();
     }
 
     @Test

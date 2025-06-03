@@ -363,7 +363,7 @@ class InstructorResourceIT {
         Instructor partialUpdatedInstructor = new Instructor();
         partialUpdatedInstructor.setId(instructor.getId());
 
-        partialUpdatedInstructor.firstName(UPDATED_FIRST_NAME).email(UPDATED_EMAIL).bio(UPDATED_BIO);
+        partialUpdatedInstructor.firstName(UPDATED_FIRST_NAME).email(UPDATED_EMAIL).bio(UPDATED_BIO).hireDate(UPDATED_HIRE_DATE);
 
         webTestClient
             .patch()

@@ -366,7 +366,7 @@ class StudentResourceIT {
         Student partialUpdatedStudent = new Student();
         partialUpdatedStudent.setId(student.getId());
 
-        partialUpdatedStudent.lastName(UPDATED_LAST_NAME);
+        partialUpdatedStudent.lastName(UPDATED_LAST_NAME).email(UPDATED_EMAIL).registrationDate(UPDATED_REGISTRATION_DATE);
 
         webTestClient
             .patch()

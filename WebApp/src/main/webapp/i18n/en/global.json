@@ -10,7 +10,8 @@
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "instructorApp": "Instructor",
         "courseApp": "Course",
-        "studentApp": "Student"
+        "studentApp": "Student",
+        "studentProfileApp": "Student Profile"
       },
       "account": {
         "main": "Account",

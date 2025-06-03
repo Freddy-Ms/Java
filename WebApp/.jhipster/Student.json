@@ -36,6 +36,12 @@
   "pagination": "pagination",
   "relationships": [
     {
+      "otherEntityName": "studentProfile",
+      "relationshipName": "profile",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "course",
       "otherEntityRelationshipName": "student",
       "relationshipName": "course",

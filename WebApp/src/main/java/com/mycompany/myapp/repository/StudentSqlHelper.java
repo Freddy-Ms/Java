@@ -18,6 +18,7 @@ public class StudentSqlHelper {
         columns.add(Column.aliased("email", table, columnPrefix + "_email"));
         columns.add(Column.aliased("registration_date", table, columnPrefix + "_registration_date"));
 
+        columns.add(Column.aliased("profile_id", table, columnPrefix + "_profile_id"));
         return columns;
     }
 }

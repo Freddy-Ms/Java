@@ -44,7 +44,7 @@ public class Course implements Serializable {
     private Float price;
 
     @org.springframework.data.annotation.Transient
-    @JsonIgnoreProperties(value = { "courses" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "profile", "courses" }, allowSetters = true)
     private Set<Student> students = new HashSet<>();
 
     @org.springframework.data.annotation.Transient

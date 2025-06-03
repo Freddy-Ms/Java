@@ -26,6 +26,7 @@ describe('StudentApp Form Service', () => {
             gender: expect.any(Object),
             email: expect.any(Object),
             registrationDate: expect.any(Object),
+            profile: expect.any(Object),
             courses: expect.any(Object),
           }),
         );
@@ -43,6 +44,7 @@ describe('StudentApp Form Service', () => {
             gender: expect.any(Object),
             email: expect.any(Object),
             registrationDate: expect.any(Object),
+            profile: expect.any(Object),
             courses: expect.any(Object),
           }),
         );

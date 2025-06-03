@@ -4,10 +4,12 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, of } from 'rxjs';
 
+import { IStudentProfileApp } from 'app/entities/student-profile-app/student-profile-app.model';
+import { StudentProfileAppService } from 'app/entities/student-profile-app/service/student-profile-app.service';
 import { ICourseApp } from 'app/entities/course-app/course-app.model';
 import { CourseAppService } from 'app/entities/course-app/service/course-app.service';
-import { StudentAppService } from '../service/student-app.service';
 import { IStudentApp } from '../student-app.model';
+import { StudentAppService } from '../service/student-app.service';
 import { StudentAppFormService } from './student-app-form.service';
 
 import { StudentAppUpdateComponent } from './student-app-update.component';
@@ -18,6 +20,7 @@ describe('StudentApp Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let studentFormService: StudentAppFormService;
   let studentService: StudentAppService;
+  let studentProfileService: StudentProfileAppService;
   let courseService: CourseAppService;
 
   beforeEach(() => {
@@ -41,12 +44,31 @@ describe('StudentApp Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     studentFormService = TestBed.inject(StudentAppFormService);
     studentService = TestBed.inject(StudentAppService);
+    studentProfileService = TestBed.inject(StudentProfileAppService);
     courseService = TestBed.inject(CourseAppService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('should call profile query and add missing value', () => {
+      const student: IStudentApp = { id: 22718 };
+      const profile: IStudentProfileApp = { id: 475 };
+      student.profile = profile;
+
+      const profileCollection: IStudentProfileApp[] = [{ id: 475 }];
+      jest.spyOn(studentProfileService, 'query').mockReturnValue(of(new HttpResponse({ body: profileCollection })));
+      const expectedCollection: IStudentProfileApp[] = [profile, ...profileCollection];
+      jest.spyOn(studentProfileService, 'addStudentProfileAppToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ student });
+      comp.ngOnInit();
+
+      expect(studentProfileService.query).toHaveBeenCalled();
+      expect(studentProfileService.addStudentProfileAppToCollectionIfMissing).toHaveBeenCalledWith(profileCollection, profile);
+      expect(comp.profilesCollection).toEqual(expectedCollection);
+    });
+
     it('should call CourseApp query and add missing value', () => {
       const student: IStudentApp = { id: 22718 };
       const courses: ICourseApp[] = [{ id: 2858 }];
@@ -71,12 +93,15 @@ describe('StudentApp Management Update Component', () => {
 
     it('should update editForm', () => {
       const student: IStudentApp = { id: 22718 };
+      const profile: IStudentProfileApp = { id: 475 };
+      student.profile = profile;
       const course: ICourseApp = { id: 2858 };
       student.courses = [course];
 
       activatedRoute.data = of({ student });
       comp.ngOnInit();
 
+      expect(comp.profilesCollection).toContainEqual(profile);
       expect(comp.coursesSharedCollection).toContainEqual(course);
       expect(comp.student).toEqual(student);
     });
@@ -151,6 +176,16 @@ describe('StudentApp Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareStudentProfileApp', () => {
+      it('should forward to studentProfileService', () => {
+        const entity = { id: 475 };
+        const entity2 = { id: 14453 };
+        jest.spyOn(studentProfileService, 'compareStudentProfileApp');
+        comp.compareStudentProfileApp(entity, entity2);
+        expect(studentProfileService.compareStudentProfileApp).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareCourseApp', () => {
       it('should forward to courseService', () => {
         const entity = { id: 2858 };

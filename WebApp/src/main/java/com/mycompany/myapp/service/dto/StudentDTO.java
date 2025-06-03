@@ -28,6 +28,8 @@ public class StudentDTO implements Serializable {
 
     private Instant registrationDate;
 
+    private StudentProfileDTO profile;
+
     private Set<CourseDTO> courses = new HashSet<>();
 
     public Long getId() {
@@ -86,6 +88,14 @@ public class StudentDTO implements Serializable {
         this.registrationDate = registrationDate;
     }
 
+    public StudentProfileDTO getProfile() {
+        return profile;
+    }
+
+    public void setProfile(StudentProfileDTO profile) {
+        this.profile = profile;
+    }
+
     public Set<CourseDTO> getCourses() {
         return courses;
     }
@@ -126,6 +136,7 @@ public class StudentDTO implements Serializable {
             ", gender='" + getGender() + "'" +
             ", email='" + getEmail() + "'" +
             ", registrationDate='" + getRegistrationDate() + "'" +
+            ", profile=" + getProfile() +
             ", courses=" + getCourses() +
             "}";
     }

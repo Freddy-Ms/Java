@@ -37,6 +37,7 @@ type StudentAppFormGroupContent = {
   gender: FormControl<StudentAppFormRawValue['gender']>;
   email: FormControl<StudentAppFormRawValue['email']>;
   registrationDate: FormControl<StudentAppFormRawValue['registrationDate']>;
+  profile: FormControl<StudentAppFormRawValue['profile']>;
   courses: FormControl<StudentAppFormRawValue['courses']>;
 };
 
@@ -63,6 +64,7 @@ export class StudentAppFormService {
       gender: new FormControl(studentRawValue.gender),
       email: new FormControl(studentRawValue.email),
       registrationDate: new FormControl(studentRawValue.registrationDate),
+      profile: new FormControl(studentRawValue.profile),
       courses: new FormControl(studentRawValue.courses ?? []),
     });
   }

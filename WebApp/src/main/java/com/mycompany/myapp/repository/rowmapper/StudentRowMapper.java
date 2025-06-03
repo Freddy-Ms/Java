@@ -34,6 +34,7 @@ public class StudentRowMapper implements BiFunction<Row, String, Student> {
         entity.setGender(converter.fromRow(row, prefix + "_gender", Gender.class));
         entity.setEmail(converter.fromRow(row, prefix + "_email", String.class));
         entity.setRegistrationDate(converter.fromRow(row, prefix + "_registration_date", Instant.class));
+        entity.setProfileId(converter.fromRow(row, prefix + "_profile_id", Long.class));
         return entity;
     }
 }

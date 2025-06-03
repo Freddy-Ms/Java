@@ -41,6 +41,14 @@
           <dd>
             <span>{{ studentRef.registrationDate | formatMediumDatetime }}</span>
           </dd>
+          <dt><span jhiTranslate="simpleWebApp.student.profile">Profile</span></dt>
+          <dd>
+            @if (student()!.profile) {
+              <div>
+                <a [routerLink]="['/student-profile-app', student()!.profile?.id, 'view']">{{ studentRef.profile?.id }}</a>
+              </div>
+            }
+          </dd>
           <dt><span jhiTranslate="simpleWebApp.student.course">Course</span></dt>
           <dd>
             @for (course of studentRef.courses; track $index; let last = $last) {

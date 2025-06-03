@@ -82,6 +82,12 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="profile.id">
+              <div class="d-flex">
+                <span jhiTranslate="simpleWebApp.student.profile">Profile</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -99,6 +105,13 @@
               </td>
               <td>{{ student.email }}</td>
               <td>{{ student.registrationDate | formatMediumDatetime }}</td>
+              <td>
+                @if (student.profile) {
+                  <div>
+                    <a [routerLink]="['/student-profile-app', student.profile.id, 'view']">{{ student.profile.id }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/student-app', student.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

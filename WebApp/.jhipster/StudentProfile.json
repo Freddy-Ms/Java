@@ -1,0 +1,31 @@
+{
+  "angularJSSuffix": "App",
+  "annotations": {
+    "changelogDate": "20250603114831"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "bio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "linkedinUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "githubUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "profilePictureUrl",
+      "fieldType": "String"
+    }
+  ],
+  "name": "StudentProfile",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

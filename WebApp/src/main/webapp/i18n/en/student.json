@@ -24,6 +24,7 @@
       "gender": "Gender",
       "email": "Email",
       "registrationDate": "Registration Date",
+      "profile": "Profile",
       "course": "Course"
     }
   }

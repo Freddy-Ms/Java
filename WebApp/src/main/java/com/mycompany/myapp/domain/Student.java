@@ -43,8 +43,14 @@ public class Student implements Serializable {
     private Instant registrationDate;
 
     @org.springframework.data.annotation.Transient
+    private StudentProfile profile;
+
+    @org.springframework.data.annotation.Transient
     @JsonIgnoreProperties(value = { "students", "instructor" }, allowSetters = true)
     private Set<Course> courses = new HashSet<>();
+
+    @Column("profile_id")
+    private Long profileId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -139,6 +145,20 @@ public class Student implements Serializable {
         this.registrationDate = registrationDate;
     }
 
+    public StudentProfile getProfile() {
+        return this.profile;
+    }
+
+    public void setProfile(StudentProfile studentProfile) {
+        this.profile = studentProfile;
+        this.profileId = studentProfile != null ? studentProfile.getId() : null;
+    }
+
+    public Student profile(StudentProfile studentProfile) {
+        this.setProfile(studentProfile);
+        return this;
+    }
+
     public Set<Course> getCourses() {
         return this.courses;
     }
@@ -168,6 +188,14 @@ public class Student implements Serializable {
         this.courses.remove(course);
         course.getStudents().remove(this);
         return this;
+    }
+
+    public Long getProfileId() {
+        return this.profileId;
+    }
+
+    public void setProfileId(Long studentProfile) {
+        this.profileId = studentProfile;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

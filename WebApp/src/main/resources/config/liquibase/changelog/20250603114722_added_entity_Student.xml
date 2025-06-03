@@ -32,6 +32,9 @@
             <column name="registration_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
+            <column name="profile_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_student__profile_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="student" columnName="registration_date" columnDataType="${datetimeType}"/>

@@ -2,7 +2,6 @@
  * Model bazy danych do systemu zarządzania kursami online.
  */
 
-// Enums
 enum CourseLevel {
     BEGINNER, INTERMEDIATE, ADVANCED
 }
@@ -11,7 +10,6 @@ enum Gender {
     MALE, FEMALE, OTHER
 }
 
-// Encje
 entity Instructor {
     firstName String
     lastName String
@@ -39,8 +37,14 @@ entity Student {
     registrationDate Instant
 }
 
+entity StudentProfile {
+    bio String
+    linkedinUrl String
+    githubUrl String
+    profilePictureUrl String
+}
 
-
+// Relacje
 relationship OneToMany {
     Instructor to Course{instructor}
 }
@@ -49,14 +53,14 @@ relationship ManyToMany {
     Course{student(firstName)} to Student{course}
 }
 
-// Poprawna składnia paginacji
-paginate Course, Instructor, Student with pagination
+relationship OneToOne {
+    Student{profile} to StudentProfile
+}
 
-// DTO
+// Paginacja
+paginate Course, Instructor, Student, StudentProfile with pagination
+
+// DTO i serwisy
 dto * with mapstruct
-
-// Serwisy
 service all with serviceImpl
-
-// Angular suffix
 angularSuffix * with App
