@@ -22,7 +22,7 @@ public class Controller {
     @FXML private ImageView processedView;
     @FXML private ComboBox<String> operationBox;
     @FXML private Button saveBtn;
-    @FXML private Button scaleBtn;
+  //  @FXML private Button scaleBtn;
     @FXML private Button rotateLeftBtn;
     @FXML private Button rotateRightBtn;
     @FXML private ImageView logoView;
@@ -45,7 +45,7 @@ public class Controller {
 
     private void setControlState(boolean state) {
         saveBtn.setDisable(!state);
-        scaleBtn.setDisable(!state);
+       // scaleBtn.setDisable(!state);
         rotateLeftBtn.setDisable(!state);
         rotateRightBtn.setDisable(!state);
     }
